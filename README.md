@@ -1,6 +1,7 @@
 timelog
 =======
-Timelog is a simple file reader for timelogs, similar to [ledger-cli](https://www.ledger-cli.org/).
+Timelog is a way to log your time in markdown-similar text files. A command-line tool is build
+to handle timelog files. Timelog is inspired by [ledger](https://www.ledger-cli.org/).
 
 &nbsp;
 

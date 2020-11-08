@@ -8,3 +8,9 @@ include .scripts/init.mk
 
 # virtual env creation, package updates, db migration
 include .scripts/install.mk
+
+setup:
+	.venv/bin/python setup.py install
+
+clean:
+	rm -rf .venv
