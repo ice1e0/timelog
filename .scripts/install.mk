@@ -38,7 +38,3 @@ update-packages:
 	.venv/bin/python -m pip freeze | grep -v "pkg-resources" > requirements.txt.freeze
 
 	echo -e "\033[32msucceeded, please check output above for warnings\033[0m"
-
-setup-timelog:
-	echo '#!/bin/bash' > .venv/bin/timelog
-	echo 'python timelog-cli.py' >> .venv/bin/timelog

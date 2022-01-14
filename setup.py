@@ -24,10 +24,13 @@ setup(
     },
 
     packages=find_packages(),
-    scripts=['scripts/timelog'],
 
     author='ice1e0',
     license='MIT',
 
-    entry_points={}
+    entry_points={
+        'console_scripts': [
+            'timelog = timelog.cli:parse_file',
+        ]
+    }
 )
