@@ -1,6 +1,6 @@
 timelog
 =======
-Timelog is a style of logging your time in markdown text files. The timelog cli tool
+Timelog is a style of logging your time in markdown files. The timelog cli tool
 helps you to extract data from your timelog.md files.
 Timelog is inspired by [ledger](https://www.ledger-cli.org/).
 
@@ -17,7 +17,7 @@ Sample timlog files
     12:32-13:00 prep. meeting notes
     2.15h project work
 
-2020-01-02"
+2020-01-02
     15m
 
 ```
