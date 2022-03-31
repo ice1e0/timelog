@@ -1,7 +1,8 @@
 timelog
 =======
-Timelog is a way to log your time in markdown-similar text files. A command-line tool is build
-to handle timelog files. Timelog is inspired by [ledger](https://www.ledger-cli.org/).
+Timelog is a style of logging your time in markdown text files. The timelog cli tool
+helps you to extract data from your timelog.md files.
+Timelog is inspired by [ledger](https://www.ledger-cli.org/).
 
 &nbsp;
 
@@ -23,4 +24,4 @@ Sample timlog files
 
 License
 -------
-MIT
+[MIT](LICENSE)

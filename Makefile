@@ -1,7 +1,7 @@
 all:
 	make .venv/bin/python
 	make install-packages
-	make setup-timelog
+	make setup
 
 # output coloring & timing
 include .scripts/init.mk
@@ -9,8 +9,8 @@ include .scripts/init.mk
 # virtual env creation, package updates, db migration
 include .scripts/install.mk
 
-setup:
-	.venv/bin/python setup.py install
+build:
+	.venv/bin/python -m build
 
 clean:
 	rm -rf .venv
