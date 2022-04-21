@@ -27,7 +27,7 @@ def parse_file(file: str, verbose: int, format: str):
         pos = 0
 
         # count up for taps used at the beginning
-        while pos < len(line) and line[pos] == '\t':
+        while pos < len(line) and (line[pos] == '\t' or line[pos] == ' '):
             intent += 1
             pos += 1
 
@@ -36,7 +36,7 @@ def parse_file(file: str, verbose: int, format: str):
 
         if verbose >= 3:
             sys.stdout.write(CYAN)
-            print(line[pos:])
+            print(f'[{line_num}] {line[pos:]}')
             sys.stdout.write(RESET)
 
         operator = None
@@ -54,7 +54,23 @@ def parse_file(file: str, verbose: int, format: str):
                 print(f'invalid char at line {line_num} pos {pos+1} "{line[pos]}", expected space')
                 sys.stdout.write(RESET)
 
-            project_name = line[pos:].strip()
+            markdown_header = line[pos:].strip()
+            if verbose >= 3:
+                sys.stdout.write(CYAN)
+                print(f'Markdown header: {markdown_header}')
+                sys.stdout.write(RESET)
+
+            date = try_read_date(markdown_header)
+            if date:
+                current_date = date
+                current_timelog = None
+                if verbose >= 2:
+                    sys.stdout.write(GREEN)
+                    print(f'-- current date changed: {current_date}')
+                    sys.stdout.write(RESET)
+                continue
+
+            project_name = markdown_header
             current_project = project_name
 
             if verbose >= 2:
@@ -86,7 +102,14 @@ def parse_file(file: str, verbose: int, format: str):
         start_time = None
         end_time = None
         if re.search('[0-9]{2,2}:[0-9]{2,2}-[0-9]{2,2}:[0-9]{2,2}.*', line):
-            start_time = datetime.strptime(line[pos:pos+4], '%H:%M')
+            if verbose >= 3:
+                sys.stdout.write(CYAN)
+                print('reading time or hour')
+                print(line[pos:pos+5])
+                print(line[pos+6:pos+11])
+                sys.stdout.write(RESET)
+
+            start_time = datetime.strptime(line[pos:pos+5], '%H:%M')
             end_time   = datetime.strptime(line[pos+6:pos+11], '%H:%M')
             timelog_entry = TimeLog(
                 date=current_date,
@@ -147,6 +170,10 @@ def parse_file(file: str, verbose: int, format: str):
     else:
         for time_log in timelogs:
             print(time_log)
+
+def try_read_date(line_data: str) -> datetime:
+    if re.search('[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}', line_data):
+        return datetime.strptime(line_data, '%Y-%m-%d')
 
 def read_number(str: str, pos: int):
     number_str = ''
